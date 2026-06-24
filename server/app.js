@@ -117,7 +117,7 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   process.env.CLIENT_URL,                    // Render env variable
-  'https://mern-eduforge-p5meifkpe-vikash-sharmas-projects-ab292e3a.vercel.app',    // Aapka current Vercel URL
+  'https://mern-eduforge-lms.vercel.app/',    // Aapka current Vercel URL
   'https://www.mern-eduforge-lms.vercel.app'
 ].filter(Boolean);
 
