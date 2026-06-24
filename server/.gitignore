@@ -18,3 +18,22 @@ uploads/
 node_modules/
 dist/
 build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+server/.env
+server/.env.example
+
+# Uploads
+uploads/
+
+# Dependencies
+node_modules/
+dist/
+build/
+
+# Logs
+*.log
+logs/
