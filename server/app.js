@@ -27,7 +27,27 @@ const adminRoutes = require('./routes/adminRoutes');
 const app = express();
 
 app.use(helmet({ crossOriginResourcePolicy: false }));
-app.use(cors({ origin: process.env.CLIENT_URL || '*', credentials: true }));
+
+
+// ←←← Yeh purani line hata do
+// app.use(cors({ origin: process.env.CLIENT_URL || '*', credentials: true }));
+
+// ←←← Is naye code se replace kar do
+app.use(cors({
+  origin: true,                    // Short way for allowing all origins
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Requested-With',
+    'Accept',
+    'Origin'
+  ]
+}));
+
+// Baaki code same rahega...
+app.use(express.json({ limit: '10mb' }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
