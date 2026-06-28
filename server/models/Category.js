@@ -1,11 +1,27 @@
+// const mongoose = require('mongoose');
+
+// const categorySchema = new mongoose.Schema(
+//   {
+//     name: { type: String, required: true, unique: true, trim: true },
+//     slug: { type: String, required: true, unique: true, lowercase: true },
+//     description: String,
+//     icon: String,
+//   },
+//   { timestamps: true }
+// );
+
+// module.exports = mongoose.model('Category', categorySchema);
+
+
 const mongoose = require('mongoose');
 
 const categorySchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, unique: true, trim: true },
-    slug: { type: String, required: true, unique: true, lowercase: true },
-    description: String,
-    icon: String,
+    name:        { type: String, required: true, trim: true, unique: true },
+    slug:        { type: String, required: true, unique: true, lowercase: true },
+    description: { type: String, default: '' },
+    icon:        { type: String, default: '' },
+    isActive:    { type: Boolean, default: true },
   },
   { timestamps: true }
 );

@@ -1,78 +1,165 @@
-# EduForge - AI-Powered LMS (MERN Stack)
+# EduForge - AI-Powered Learning Management System
 
-Production-ready Learning Management System inspired by PW, Unacademy, Udemy & Coursera.
+**Full-Stack MERN + AI + DevOps** based Production-ready LMS Platform inspired by Unacademy, Udemy & Coursera.
 
-## Stack
-- **Frontend**: React 18 (JSX), React Router v6, Redux Toolkit, Axios, External CSS
-- **Backend**: Node.js, Express.js, MongoDB (Mongoose), JWT, bcryptjs, Multer
-- **AI**: OpenRouter API (LLM), RAG (chunking + embeddings + retrieval), Agentic AI
-- **Payments**: Razorpay
+![Banner](./assets/banner.png)  
+*(Add a nice banner image here)*
 
-## Quick Start
+## Live Demo
+- **Frontend**: [eduforge.live](https://your-frontend-url.vercel.app) *(update kar dena)*
+- **Backend API**: [api.eduforge.live](https://your-api-url.onrender.com)
+- **Admin Panel**: Available after login as admin
 
-### Prerequisites
-- Node.js 18+
-- MongoDB running locally (or MongoDB Atlas URI)
+## Features
 
-### 1. Backend
-```bash
+### Student Features
+- Browse & enroll in courses
+- Video learning player with progress tracking
+- Interactive quizzes & assignments
+- AI Tutor & Chat with PDF documents (RAG)
+- View certificates & learning roadmap
+- Real-time progress dashboard
+
+### Teacher Features
+- Create & manage own courses, lessons & quizzes
+- Upload videos, PDFs & study materials
+- View enrolled students & their progress
+- Assignment review & grading
+
+### Admin Features
+- Complete user & course management
+- Platform analytics & statistics
+- Category & content moderation
+- User activation/deactivation
+
+### AI Features (Highlight Point)
+- **AI Tutor** with multiple modes: Tutor, Quiz Generator, Assignment Generator, Study Notes, Resume Builder, Interview Questions, Coding Mentor, Learning Roadmap
+- **RAG System** – Chat with your uploaded PDFs/DOCX
+- Context-aware responses using Llama 3.1 & other models via OpenRouter
+
+## Tech Stack
+
+**Frontend**
+- React.js + Vite
+- Redux Toolkit
+- React Router DOM
+- Tailwind CSS
+- Axios
+- React Toastify
+- Socket.IO Client (Real-time)
+
+**Backend**
+- Node.js + Express.js
+- MongoDB + Mongoose
+- JWT Authentication + bcryptjs
+- Multer (File Uploads)
+- Razorpay Payment Gateway
+
+**AI & RAG**
+- OpenRouter (Llama 3.1, DeepSeek, GPT-compatible)
+- PDF/DOCX text extraction + Chunking + Embeddings
+- Vector Search & Context Retrieval
+
+**DevOps**
+- Docker + docker-compose
+- Kubernetes (Deployment, Service, Ingress)
+- GitHub Actions CI/CD
+- MongoDB Atlas
+
+## Architecture
+Client (React + Redux)
+↓ (Axios)
+API Gateway (Express)
+↓
+Controllers → Services → MongoDB
+↓
+OpenRouter AI + RAG Pipeline
+↓
+Razorpay Payment + Certificate Generation
+text## Folder Structure
+eduforge/
+├── client/                 # React Frontend
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── redux/
+│   │   └── utils/
+├── server/                 # Node.js Backend
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   ├── services/
+│   └── uploads/
+├── kubernetes/             # K8s manifests
+├── .github/workflows/      # CI/CD
+├── docker-compose.yml
+└── README.md
+text## Environment Variables
+**Backend (.env)**
+```env
+PORT=5000
+MONGO_URI=your_mongodb_atlas_uri
+JWT_SECRET=your_jwt_secret
+OPENROUTER_API_KEY=your_openrouter_key
+RAZORPAY_KEY_ID=...
+RAZORPAY_KEY_SECRET=...
+Frontend (.env)
+envVITE_API_URL=http://localhost:5000/api
+VITE_RAZORPAY_KEY_ID=...
+Installation & Setup
+Bashgit clone https://github.com/vikashsharma0707/eduforge.git
+cd eduforge
+
+# Backend
 cd server
 npm install
-cp .env.example .env   # fill in MONGO_URI, JWT_SECRET, OPENROUTER_API_KEY, RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET
+cp .env.example .env
 npm run dev
-```
-Server runs on http://localhost:5000
 
-### 2. Frontend
-```bash
+# Frontend (new terminal)
 cd client
 npm install
-cp .env.example .env   # set VITE_API_URL=http://localhost:5000/api and VITE_RAZORPAY_KEY_ID
 npm run dev
-```
-Client runs on http://localhost:5173
+Docker Setup
+Bashdocker-compose up --build
+Kubernetes Deployment
+Bashkubectl apply -f kubernetes/
+kubectl get pods
+kubectl get svc
+API Endpoints (Important)
+Auth
 
-## Roles
-- **Admin** — full platform management
-- **Teacher** — create courses, lessons, assignments, quizzes
-- **Student** — enroll, learn, take quizzes, get certificates, chat with AI
+POST /api/auth/register
+POST /api/auth/login
 
-## Default Admin
-Register a user, then in MongoDB set `role: "admin"` on that user document — or use the seed script:
-```bash
-cd server && node utils/seedAdmin.js
-```
-Creates admin@eduforge.io / Admin@123
+Courses
 
-## AI Features
-All AI calls go through OpenRouter. Set `OPENROUTER_API_KEY` and `OPENROUTER_MODEL` (default `meta-llama/llama-3.1-8b-instruct:free`).
+GET /api/courses
+POST /api/courses (Teacher)
 
-- AI Chat Assistant (tutor)
-- Notes Generator
-- Quiz Generator
-- Assignment Generator
-- Resume Builder
-- Career Roadmap Generator
-- Interview Question Generator
-- Coding Mentor
+AI
 
-## RAG
-Upload PDF / DOCX / TXT → chunked → embedded (OpenRouter embeddings or local hash-based fallback) → stored in MongoDB → retrieved via cosine similarity → injected into prompt.
+POST /api/ai/chat
+POST /api/ai/rag (Chat with PDF)
 
-## Agentic AI
-Multi-step agents that plan → act → observe → respond:
-- Study Planner Agent
-- Career Agent
-- Interview Agent
-- Assignment Evaluation Agent
-- Coding Mentor Agent
-- Learning Recommendation Agent
-- Revision Agent
+Payments
 
-## Payments (Razorpay)
-- Create order → `/api/payments/create-order`
-- Verify signature → `/api/payments/verify`
-- Webhook → `/api/payments/webhook`
+POST /api/payments/create-order
+POST /api/payments/verify
 
-## Folder Structure
-See `client/` and `server/` directories.
+Security & Performance
+
+JWT + Role Based Access Control (RBAC)
+Helmet, CORS, Rate Limiting
+Password Hashing (bcrypt)
+Protected Routes
+Input Validation & Error Handling
+
+Resume One-Liner
+Built a production-ready AI-powered Learning Management System using MERN Stack, OpenRouter LLMs, RAG architecture, Docker, Kubernetes & Razorpay with role-based dashboards, AI tutoring, document intelligence & scalable cloud deployment.
+Author
+Vikash Sharma
+GitHub | LinkedIn | Portfolio
+License
+MIT License
